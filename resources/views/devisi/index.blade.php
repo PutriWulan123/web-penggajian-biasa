@@ -110,109 +110,97 @@
                                                     Lihat</a>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                     @can('delete role')
-                                                        <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $a++ }}">Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $row->id }}">Edit</a></li>
                                                     @endcan
                                                     <li><hr class="dropdown-divider"></li>
                                                     @can('delete role')
-                                                        <li><a class="dropdown-item" href="/deletedata_devisi">Hapus</a></li>
+                                                        <li><a class="dropdown-item" href="/deletedata_devisi/{{ $row->id }}">Hapus</a></li>
                                                     @endcan
                                                     <li><hr class="dropdown-divider"></li>
                                                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
                                                 </ul>
                                             </div>
-                                            {{-- @can('update role')
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ $a++ }}">
-                                                <i class="far fa-edit"></i>
-                                            </button>
-                                            @endcan
-
-                                            @can('delete role')
-                                            <a href="/deletedata_devisi/{{ $row->id }}" class="btn btn-danger mt-2 delete"><i class="fas fa-trash-alt"></i></a>
-                                            @endcan
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Detail{{ $row->id }}">
-                                                <i class="fas fa-eye"></i>
-                                            </button> --}}
                                         </td>
                                     </tr>
+
+                                    <!-- Modal Edit -->
+                                        <div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Data Devisi</h5>
+                                                        @can('edit role')
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        @endcan
+                                                    </div>
+                                                    <form action="/updatedata_devisi/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                                                        <div class="modal-body">
+                                                            @csrf
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
+                                                                <input type="text" name="nama_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->nama_devisi }}">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Jabatan</label>
+                                                                <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->jabatan }}">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Gaji Harian</label>
+                                                                <input type="text" name="gaji_harian" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->gaji_harian }}">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Gaji Pokok</label>
+                                                                <input type="text" name="gaji_pokok" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->gaji_pokok }}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <!-- Modal Detail -->
+                                        <div class="modal fade" id="modalDetail{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Detail Data Devisi</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="nama_devisi" class="form-label">Nama Devisi</label>
+                                                            <input type="text" name="nama_devisi" class="form-control" id="nama_devisi" value="{{ $row->nama_devisi }}" disabled>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="jabatan" class="form-label">Jabatan</label>
+                                                            <input type="text" name="jabatan" class="form-control" id="jabatan" value="{{ $row->jabatan }}" disabled>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="gaji_harian" class="form-label">Gaji Harian</label>
+                                                            <input type="text" name="gaji_harian" class="form-control" id="gaji_harian" value="{{ $row->gaji_harian }}" disabled>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="gaji_pokok" class="form-label">Gaji Pokok</label>
+                                                            <input type="text" name="gaji_pokok" class="form-control" id="gaji_pokok" value="{{ $row->gaji_pokok }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Edit -->
-    <div class="modal fade" id="exampleModal{{ $b++ }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Devisi</h5>
-                    @can('edit role')
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    @endcan
-                </div>
-                <form action="/updatedata_devisi/{{ $row->id }}" method="POST" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
-                            <input type="text" name="nama_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->nama_devisi }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Jabatan</label>
-                            <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->jabatan }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Gaji Harian</label>
-                            <input type="text" name="gaji_harian" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->gaji_harian }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Gaji Pokok</label>
-                            <input type="text" name="gaji_pokok" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->gaji_pokok }}">
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Detail -->
-    <div class="modal fade" id="modalDetail{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail Data Devisi</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="nama_devisi" class="form-label">Nama Devisi</label>
-                        <input type="text" name="nama_devisi" class="form-control" id="nama_devisi" value="{{ $row->nama_devisi }}" disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="jabatan" class="form-label">Jabatan</label>
-                        <input type="text" name="jabatan" class="form-control" id="jabatan" value="{{ $row->jabatan }}" disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="gaji_harian" class="form-label">Gaji Harian</label>
-                        <input type="text" name="gaji_harian" class="form-control" id="gaji_harian" value="{{ $row->gaji_harian }}" disabled>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="gaji_pokok" class="form-label">Gaji Pokok</label>
-                        <input type="text" name="gaji_pokok" class="form-control" id="gaji_pokok" value="{{ $row->gaji_pokok }}" disabled>
                     </div>
                 </div>
             </div>

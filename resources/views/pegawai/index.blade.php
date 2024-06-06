@@ -125,8 +125,7 @@
                                             $b = 1;
                                         @endphp
                                         @foreach ($pegawai as $row)
-                                            {{-- {{ dd($row) }} --}}
-                                            <tr class="text">
+                                            <tr class="text-center">
                                                 <td scope="row">{{ $no++ }}</td>
                                                 <td>{{ $row->nama_pegawai }}</td>
                                                 <td>{{ $row->jenis_kelamin }}</td>
@@ -140,14 +139,15 @@
                                                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Lihat</a>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                             @can('delete role')
-                                                                <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $a++ }}">Edit</a></li>
+                                                                <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $row->id }}">Edit</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
                                                             @can('delete role')
-                                                                <li><a class="dropdown-item" href="/deletedata_pegawai">Hapus</a></li>
+                                                                <li><a class="dropdown-item" href="/deletedata_pegawai/{{ $row->id }}">Hapus</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
                                                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
+
                                                         </ul>
                                                     </div>
                                                    {{-- @can('delete role')
@@ -162,30 +162,14 @@
                                                     
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
 
-    <!-- Modal Edit -->
-<div class="modal fade" id="exampleModal{{ $b++ }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Edit -->
+<div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit
-                    Data Pegawai</h5>
-                @can('edit role')
-                    <button type="button" class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                @endcan
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Pegawai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/updatedata_pegawai/{{ $row->id }}"
                 method="POST" enctype="multipart/form-data">
@@ -246,9 +230,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Keluar</button>
-                    <button type="submit"
-                        class="btn btn-primary">Simpan
-                        Perubahan</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -266,43 +248,28 @@
             <div class="modal-body">
                 {{-- CODE UNTUK TAMPILAN POP UP --}}
                 <div class="mb-3">
-                    <label for="nama_pegawai" class="form-label">Nama
-                        Lengkap</label>
-                    <input type="text" name="nama_pegawai"
-                        class="form-control"
-                        id="nama_pegawai"
+                    <label for="nama_pegawai" class="form-label">Nama Lengkap</label>
+                    <input type="text" name="nama_pegawai" class="form-control" id="nama_pegawai"
                         value="{{ $row->nama_pegawai }}" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="jenis_kelamin"
-                        class="form-label">Jenis Kelamin</label>
-                    <input type="text" name="jenis_kelamin"
-                        class="form-control"
-                        id="jenis_kelamin"
+                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                    <input type="text" name="jenis_kelamin" class="form-control" id="jenis_kelamin"
                         value="{{ $row->jenis_kelamin }}" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="devisi"
-                        class="form-label">Id Devisi</label>
-                    <input type="text" name="id_devisi"
-                        class="form-control"
-                        id="id_devisi"
+                    <label for="devisi" class="form-label">Id Devisi</label>
+                    <input type="text" name="id_devisi" class="form-control" id="id_devisi"
                         value="{{ $row->devisis->nama_devisi }}" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="alamat"
-                        class="form-label">Alamat</label>
-                    <input type="text" name="alamat"
-                        class="form-control"
-                        id="alamat"
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <input type="text" name="alamat" class="form-control" id="alamat"
                         value="{{ $row->alamat }}" disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="no_telp"
-                        class="form-label">No. Telp</label>
-                    <input type="number" name="no_telp"
-                        class="form-control"
-                        id="no_telp"
+                    <label for="no_telp" class="form-label">No. Telp</label>
+                    <input type="number" name="no_telp" class="form-control" id="no_telp"
                         value="0{{ $row->no_telp }}" disabled>
                 </div>
             </div>
@@ -310,6 +277,19 @@
     </div>
 </div>
 
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
 
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

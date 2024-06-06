@@ -131,41 +131,21 @@
                                                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Lihat</a>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                             @can('delete role')
-                                                                <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $a++ }}">Edit</a></li>
+                                                                <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $row->id }}">Edit</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
                                                             @can('delete role')
-                                                                <li><a class="dropdown-item" href="/deletedata_penggajian">Hapus</a></li>
+                                                                <li><a class="dropdown-item" href="/deletedata_penggajian/{{ $row->id }}">Hapus</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
                                                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
                                                         </ul>
                                                     </div>
-                                                    {{-- @can('delete role')
-                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $a++ }}"><i class="far fa-edit"></i></button>
-                                                    @endcan
-                                                    @can('delete role')
-                                                    <a href="/deletedata_penggajian/{{ $row->id }}" class="btn btn-danger mt-2 delete"><i class="fas fa-trash-alt"></i></a>
-                                                    @endcan
-                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button> --}}
-                                                    
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal Edit -->
-<div class="modal fade" id="exampleModal{{ $b++ }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Edit -->
+<div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -250,6 +230,18 @@
         </div>
     </div>
 </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 
