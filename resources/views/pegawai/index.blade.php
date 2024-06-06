@@ -87,6 +87,7 @@
                                                             data-bs-dismiss="modal">Keluar</button>
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

@@ -169,16 +169,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit
-                    Data Absensi</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Absensi</h5>
                 @can('edit role')
                     <button type="button" class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 @endcan
             </div>
-            <form action="/updatedata_absensi/{{ $row->id }}"
-                method="POST" enctype="multipart/form-data">
+            <form action="/updatedata_absensi/{{ $row->id }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     {{-- CODE UNTUK TAMPILAN POP UP --}}
                     @csrf
@@ -225,8 +223,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail
-                    Data Absensi</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Data Absensi</h5>
             </div>
             <div class="modal-body">
                 {{-- CODE UNTUK TAMPILAN POP UP --}}

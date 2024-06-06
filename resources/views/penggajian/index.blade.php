@@ -127,7 +127,21 @@
                                                     }}</td>
                                                 <td>
                                                     <!-- Button trigger modal -->
-                                                    @can('delete role')
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Lihat</a>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            @can('delete role')
+                                                                <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $a++ }}">Edit</a></li>
+                                                            @endcan
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            @can('delete role')
+                                                                <li><a class="dropdown-item" href="/deletedata_penggajian">Hapus</a></li>
+                                                            @endcan
+                                                            <li><hr class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    {{-- @can('delete role')
                                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $a++ }}"><i class="far fa-edit"></i></button>
                                                     @endcan
                                                     @can('delete role')
@@ -135,7 +149,7 @@
                                                     @endcan
                                                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">
                                                             <i class="fas fa-eye"></i>
-                                                        </button>
+                                                        </button> --}}
                                                     
                                                 </td>
                                             </tr>
@@ -193,9 +207,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">Keluar</button>
-                    <button type="submit"
-                        class="btn btn-primary">Simpan
-                        Perubahan</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -207,8 +219,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail
-                    Data Penggajian</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Data Penggajian</h5>
             </div>
             <div class="modal-body">
                 {{-- CODE UNTUK TAMPILAN POP UP --}}
