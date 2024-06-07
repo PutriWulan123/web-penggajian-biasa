@@ -3,26 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Pegawai;
+use App\Models\Devisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AbsensiController extends Controller
 {
     public function index(){
-         $data = DB::table('absensis')
+        $data = DB::table('absensis')
                 ->join('pegawais', 'absensis.id_pegawai', 'pegawais.id')
                 ->select('absensis.*', 'pegawais.nama_pegawai')
                 ->latest()->paginate(5);
         $data = Absensi::all();
-        return view('absensi.index', compact('data'));
+        $item = Pegawai::all();
+        return view('absensi.index', compact('data', 'item'));
         }
 
         public function tambahabsensi() 
         {
-            // return view('tambahdataabsensi);
-            // dd($request->all());
-            Absensi::create($request->all());
-            return redirect()->route('tambah_dataabsensi')->with('berhasil','Data Berhasil Ditambahkan');
+            $data = Pegawai::all();
+            $data = Devisi::all();
+            return view('absensi.index', compact('data'));
         }
         public function insertdata_absensi(Request $request)
         {

@@ -15,7 +15,7 @@ class Absensi extends Model
 
     public function pegawais()
     {
-        return $this->belongsTo(Pegawai::class, 'id_pegawai','id');
+        return $this->hasMany(Pegawai::class, 'id_pegawai','id');
     }
 
     public function devisis()

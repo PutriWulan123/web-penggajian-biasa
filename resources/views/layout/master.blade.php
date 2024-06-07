@@ -245,20 +245,20 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="/penggajian" class="nav-link">
-              <i class="far fa-money-bill-alt"></i>
+           <li class="nav-item">
+            <a href="/absensi" class="nav-link">
+              <i class="fas fa-window-restore"></i>
               <p>
-                Data Penggajian
+                Data Absensi
               </p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="/absensi" class="nav-link">
+            <a href="/penggajian" class="nav-link">
               <i class="far fa-money-bill-alt"></i>
               <p>
-                Data Absensi
+                Data Penggajian
               </p>
             </a>
           </li>

@@ -54,14 +54,33 @@
                                             <form action="/insertdata_absensi" method="POST" enctype="multipart/form-data">
                                                 
                                                 @csrf
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Id Pegawai</label>
-                                                    <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                {{-- PR --}}
+                                            
+                                                <div class="form-group">
+                                                    <label>Pegawai</label>
+                                                    <select name="id_pegawai" class="form-control">
+                                                    <option selected>- Pilih -</option>
+                                                        @foreach ($item as $pg ) 
+                                                            <option value="{{ $pg->id_pegawai}}">{{ $pg->nama_pegawai}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                                <div class="mb-3">
+                                            
+                                                <div class="form-group">
+                                                    <label>Devisi</label>
+                                                    <select name="id_devisi" class="form-control">
+                                                    <option selected>- Pilih -</option>
+                                                        @foreach ($data as $item )
+                                                            <option value="{{ $item->nama_pegawai}}">{{ $item->id_pegawai}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+
+                                                {{-- <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
                                                     <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Kehadiran</label>
@@ -83,6 +102,7 @@
                                                             data-bs-dismiss="modal">Keluar</button>
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
+                                            
                                             </form>
                                         </div>
                                     </div>
@@ -104,7 +124,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Id Pegawai</th>
+                                            <th class="text-center">Pegawai</th>
                                             <th class="text-center">Devisi</th>
                                             <th class="text-center">Kehadiran</th>
                                             <th class="text-center">Tanggal</th>
@@ -118,7 +138,7 @@
                                             $b = 1;
                                         @endphp
                                           @foreach($data as $row)
-                                            <tr class="text">
+                                            <tr class="text-center">
                                                 <th scope="row">{{ $no++}}</th>
                                                     <td>{{ $row->pegawais->nama_pegawai }}</td>
                                                     <td>{{ $row->devisis->nama_devisi }}</td>
@@ -255,6 +275,7 @@
             <script>"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"</script>
             <script>"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"</script> --}}
             <!-- Option 1: Bootstrap Bundle with Popper -->
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
             <script src="https://unpkg.com/sweetaalert/dist/sweetalert.min.js"></script>

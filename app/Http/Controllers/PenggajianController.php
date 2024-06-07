@@ -70,24 +70,35 @@ class PenggajianController extends Controller
     {
         // Ambil data absensi dan hitung jumlah hari kerja
         $periode = '2024-05'; // Periode tertentu
+        $bulan = '05';
+        $tahun  = date('Y');
         $absensi = DB::table('absensis')
             ->join('pegawais', 'absensis.id_pegawai', '=', 'pegawais.id')
             ->select('absensis.id_pegawai', 'pegawais.nama_pegawai', DB::raw('COUNT(absensis.id) as jumlah_hari_kerja'))
-            ->where('absensis.tanggal', 'like', $periode . '%')
-            ->groupBy('absensis.id_pegawai', 'pegawais.nama_pegawai')
+            ->where('month(absensis.tanggal)', $bulan)
+            ->where('year(absensis.tanggal)', $tahun)
+            ->where('absensis.kehadiran', 'hadir') //tambahan kondisi untuk kehadiran
+            ->groupBy('absensis.id_pegawai', 'pegawais.nama_pegawai', 'absensis.kehadiran')
             ->get();
 
         // Proses perhitungan gaji
-        foreach ($absensi as $data) {
-            $gajiharian = 400000; // Misalnya, gaji per hari
-            $totalGaji = $data->jumlah_hari_kerja * $gajiharian;
+        // foreach ($absensi as $data) {
+        //     $gajiharian = 400000; // Misalnya, gaji per hari
+        //     $totalGaji = $data->jumlah_hari_kerja * $gajiharian;
+        // }
 
-            // Simpan ke tabel penggajian
+        foreach ($absensi as $data) {
+    foreach ($data->divisi as $devisi) {
+        $gajiharian = $devisi->gajiharian;
+    }
+    $totalGaji = $data->jumlah_hari_kerja * $gajiharian;
+    }
+
+        // Simpan ke tabel penggajian
             DB::table('penggajians')->updateOrInsert(
                 ['id_pegawai' => $data->id_pegawai, 'periode' => $periode],
                 ['total_gaji' => $totalGaji, 'created_at' => now(), 'updated_at' => now()]
             );
-        }
 
         // Ambil data gaji dari tabel penggajian
         $dataGaji = DB::table('penggajians')
@@ -98,7 +109,7 @@ class PenggajianController extends Controller
             ->paginate(5);
 
         // Kembalikan data ke view (misalnya)
-        return view('penggajian.data_penggajian', compact('dataGaji'));
+        return view('penggajian.index', compact('dataGaji'));
     }
 
 }

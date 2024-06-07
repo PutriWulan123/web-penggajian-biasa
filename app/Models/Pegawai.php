@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Devisi;
+use App\Models\Absensi;
 use App\Models\Penggajian;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,10 @@ class Pegawai extends Model
     public function penggajians()
     {
         return $this->hasOne(Penggajian::class);
+    }
+    public function absensi()
+    {
+        return $this->hasOne(Absensi::class);
     }
     
 }

@@ -117,7 +117,7 @@
                                             $b = 1;
                                         @endphp
                                          @foreach($data as $row)
-                                            <tr class="text">
+                                            <tr class="text-center">
                                                 <th scope="row">{{ $no++}}</th>
                                                 <td>{{ $row->pegawais->nama_pegawai }}</td>
                                                 <td>{{ $row->devisis->nama_devisi }}</td>
