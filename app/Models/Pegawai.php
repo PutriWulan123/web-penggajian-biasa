@@ -17,6 +17,13 @@ class Pegawai extends Model
     protected $guarded = [];
     protected $table = 'pegawais';
   //protected $dates = ['created_at'];
+//   protected $fillable = [
+//         'nama_pegawai',
+//         'jenis_kelamin',
+//         'id_devisi',
+//         'alamat',
+//         'no_telp',
+//     ];
 
    public function devisis()
    {
@@ -29,7 +36,7 @@ class Pegawai extends Model
     }
     public function absensi()
     {
-        return $this->hasOne(Absensi::class);
+        return $this->hasOne(Absensi::class, 'id_pegawai');
     }
     
 }

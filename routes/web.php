@@ -50,6 +50,7 @@ Route::get('/deletedata_pegawai/{id}', [PegawaiController::class, 'deletedata_pe
 Route::get('/show/{id}', [PegawaiController::class, 'show'])->name('pegawai.show');
 
 
+
 //gol devisi
 Route::get('/devisi',[DevisiController::class, 'index'])->name('devisi');
 Route::get('/tambahdevisi',[DevisiController::class, 'tambahdevisi'])->name('tambahdevisi');
@@ -79,6 +80,7 @@ Route::post('/updatedata_absensi/{id}',[AbsensiController::class, 'updatedata_ab
 Route::get('/deletedata_absensi/{id}',[AbsensiController::class, 'deletedata_absensi'])->name('deletedata_absensi');
 // Route::get('/detail_datagaji/{id}', [AbsensiController::class, 'detail_datagaji'])->name('detail_datagaji');
 Route::get('/detail_dataabsensi/{id}', [PegawaiController::class, 'show'])->name('absensi.show');
+Route::get('/get-pegawai', [PegawaiController::class, 'getPegawaiByName']);
 
 
 Route::get('/hitung-gaji', [PenggajianController::class, 'hitungGaji']);

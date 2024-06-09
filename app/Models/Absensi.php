@@ -11,15 +11,22 @@ class Absensi extends Model
 {
     use HasFactory;
     protected $primary = 'id';
-    protected $guarded = [];
+    protected $table = 'absensis';
+    // protected $guarded = [];
+    protected $fillable = [
+        'id_pegawai',
+        'id_devisi',
+        'kehadiran',
+        'tanggal',
+    ];
 
     public function pegawais()
     {
-        return $this->hasMany(Pegawai::class, 'id_pegawai','id');
+        return $this->hasMany(Pegawai::class, 'id');
     }
 
     public function devisis()
     {
-        return $this->belongsTo(Devisi::class, 'id_devisi','id');
+        return $this->belongsTo(Devisi::class);
     }
 }

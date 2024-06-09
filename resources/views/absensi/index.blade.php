@@ -55,40 +55,35 @@
                                                 
                                                 @csrf
                                                 {{-- PR --}}
-                                            
-                                                <div class="form-group">
+                                                 <div class="form-group">
                                                     <label>Pegawai</label>
                                                     <select name="id_pegawai" class="form-control">
-                                                    <option selected>- Pilih -</option>
-                                                        @foreach ($item as $pg ) 
-                                                            <option value="{{ $pg->id_pegawai}}">{{ $pg->nama_pegawai}}</option>
+                                                        <option value="">- Pilih -</option>
+                                                        @foreach ($pegawais as $pg)
+                                                            <option value="{{ $pg->id }}">{{ $pg->nama_pegawai }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+
+
                                             
                                                 <div class="form-group">
                                                     <label>Devisi</label>
                                                     <select name="id_devisi" class="form-control">
                                                     <option selected>- Pilih -</option>
-                                                        @foreach ($data as $item )
-                                                            <option value="{{ $item->nama_pegawai}}">{{ $item->id_pegawai}}</option>
+                                                        @foreach ($row as $dv )
+                                                            <option value="{{ $dv->id}}">{{ $dv->nama_devisi}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
 
-
-                                                {{-- <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
-                                                    <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                </div> --}}
-
                                                 <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Kehadiran</label>
-                                                    <select class="form-select" name="kehadiran" aria-label="Default select example">
+                                                    <label for="exampleInputEmail1" class="form-label">Kehadiran</labekehadiran" aria-label="Default select example">
                                                         <option selected>--Kehadiran--</option>
                                                         <option value="Ijin">Ijin</option>
                                                         <option value="Sakit">Sakit</option>
-                                                        <option value="Alfa">Alfa</option>
+                                                        <option value="Alfa">Alfa</opl>
+                                                    <select class="form-select" name="tion>
                                                     </select>
                                                 </div>
 
@@ -137,7 +132,7 @@
                                             $a = 1;
                                             $b = 1;
                                         @endphp
-                                          @foreach($data as $row)
+                                          @foreach($data1 as $row)
                                             <tr class="text-center">
                                                 <th scope="row">{{ $no++}}</th>
                                                     <td>{{ $row->pegawais->nama_pegawai }}</td>
@@ -166,90 +161,90 @@
                                                 </td>
                                             </tr>
 
-<!-- Modal Edit -->
-<div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Data Absensi</h5>
-                    <button type="button" class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <form action="/updatedata_absensi/{{ $row->id }}" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    {{-- CODE UNTUK TAMPILAN POP UP --}}
-                    @csrf
-                    
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nama Pegawai</label>
-                        <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->id_pegawai}}">
-                    </div>
+                                                    <!-- Modal Edit -->
+                                                    <div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Absensi</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                </div>
+                                                                <form action="/updatedata_absensi/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                                                                    <div class="modal-body">
+                                                                        {{-- CODE UNTUK TAMPILAN POP UP --}}
+                                                                        @csrf
+                                                                        
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleInputEmail1" class="form-label">Nama Pegawai</label>
+                                                                            <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->id_pegawai}}">
+                                                                        </div>
 
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
-                        <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->nama_devisi}}">
-                    </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
+                                                                            <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->nama_devisi}}">
+                                                                        </div>
 
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Kehadiran</label>
-                        <select class="form-select" name="kehadiran" aria-label="Default select example">
-                            <option selected>--Kehadiran--</option>
-                            <option value="Ijin">Ijin</option>
-                            <option value="Sakit">Sakit</option>
-                            <option value="Alfa">Alfa</option>
-                        </select>
-                    </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleInputEmail1" class="form-label">Kehadiran</label>
+                                                                            <select class="form-select" name="kehadiran" aria-label="Default select example">
+                                                                                <option selected>--Kehadiran--</option>
+                                                                                <option value="Ijin">Ijin</option>
+                                                                                <option value="Sakit">Sakit</option>
+                                                                                <option value="Alfa">Alfa</option>
+                                                                            </select>
+                                                                        </div>
 
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Tanggal</label>
-                        <input type="date" name="tanggal" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->tanggal}}">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Keluar</button>
-                    <button type="submit"
-                        class="btn btn-primary">Simpan
-                        Perubahan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+                                                                        <div class="mb-3">
+                                                                            <label for="exampleInputEmail1" class="form-label">Tanggal</label>
+                                                                            <input type="date" name="tanggal" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->tanggal}}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Keluar</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Simpan
+                                                                            Perubahan</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-<!-- Modal Detail -->
-<div class="modal fade" id="modalDetail{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Data Absensi</h5>
-            </div>
-            <div class="modal-body">
-                {{-- CODE UNTUK TAMPILAN POP UP --}}
-               <div class="mb-3">
-                    <label for="devisi" class="form-label">Nama Pegawai</label>
-                    <input type="text" name="id_pegawai" class="form-control" id="id_pegawai" value="{{ $row->pegawais->nama_pegawai }}" disabled>
-                </div>
-                                      
-                <div class="mb-3">
-                    <label for="id_devisi" class="form-label">Nama Devisi</label>
-                    <input type="text" name="id_devisi" class="form-control" id="id_devisi" value="{{ $row->devisis->nama_devisi }}" disabled>
-                </div>
-                                        
-                <div class="mb-3">
-                    <label for="kehadiran" class="form-label">Kehadiran</label>
-                    <input type="text" name="kehadiran" class="form-control" id="kehadiran" value="{{ $row->kehadiran }}" disabled>
-                </div>
-                                        
-                <div class="mb-3">
-                    <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ $row->tanggal }}" disabled>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                                    <!-- Modal Detail -->
+                                                    <div class="modal fade" id="modalDetail{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Detail Data Absensi</h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    {{-- CODE UNTUK TAMPILAN POP UP --}}
+                                                                <div class="mb-3">
+                                                                        <label for="devisi" class="form-label">Nama Pegawai</label>
+                                                                        <input type="text" name="id_pegawai" class="form-control" id="id_pegawai" value="{{ $row->pegawais->nama_pegawai }}" disabled>
+                                                                    </div>
+                                                                                        
+                                                                    <div class="mb-3">
+                                                                        <label for="id_devisi" class="form-label">Nama Devisi</label>
+                                                                        <input type="text" name="id_devisi" class="form-control" id="id_devisi" value="{{ $row->devisis->nama_devisi }}" disabled>
+                                                                    </div>
+                                                                                            
+                                                                    <div class="mb-3">
+                                                                        <label for="kehadiran" class="form-label">Kehadiran</label>
+                                                                        <input type="text" name="kehadiran" class="form-control" id="kehadiran" value="{{ $row->kehadiran }}" disabled>
+                                                                    </div>
+                                                                                            
+                                                                    <div class="mb-3">
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
+                                                                        <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ $row->tanggal }}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -275,9 +270,10 @@
             <script>"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"</script>
             <script>"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"</script> --}}
             <!-- Option 1: Bootstrap Bundle with Popper -->
+            
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
             <script src="https://unpkg.com/sweetaalert/dist/sweetalert.min.js"></script>
     <script>
         $('.delete').click(function(e) {
@@ -298,6 +294,23 @@
             });
         });
     </script>
+
+   {{-- <script>
+        $(document).ready(function(){
+            $('#loadData').click(function(){
+                $.ajax({
+                    url: '/api/getPegawaiHTML',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#pegawaiDropdown').html(response);
+                    },
+                    error: function(error) {
+                        alert('Error retrieving data');
+                    }
+                });
+            });
+        });
+    </script> --}}
 
     {{-- MEMBUAT PENCARIANNYA --}}
     <script>

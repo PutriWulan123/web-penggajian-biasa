@@ -55,4 +55,6 @@ class PegawaiController extends Controller
 
         return view('pegawai.detail_datapegawai', compact('pegawai'));
     }
+
+    
 }

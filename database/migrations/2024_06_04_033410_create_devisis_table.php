@@ -18,7 +18,6 @@ class CreateDevisisTable extends Migration
             $table->string('nama_devisi');
             $table->string('jabatan');
             $table->integer('gaji_harian');
-            $table->integer('gaji_pokok');
             $table->timestamps();
         });
     }
