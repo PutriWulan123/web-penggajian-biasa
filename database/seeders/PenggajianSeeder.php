@@ -18,10 +18,11 @@ class PenggajianSeeder extends Seeder
     {
         DB::table('penggajians')->insert([
             'id_pegawai' => '1',
-            'id_devisi' => '5',
+            // 'id_devisi' => '5',
             'periode' => '2024-03',
-            'total_gaji' => '3000000',
-            'tanggal_bayar' => '2024-03-03',
+            'makan' => '15000',
+            'transportasi' => '15000',
+            'tgl_penggajian' => '2024-03-03',
         ]);
 
     }

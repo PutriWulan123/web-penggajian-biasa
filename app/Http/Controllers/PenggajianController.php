@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use App\Models\Penggajian;
+use App\Models\Pegawai;
+use App\Models\Devisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +17,9 @@ class PenggajianController extends Controller
                 ->select('penggajians.*', 'pegawais.nama_pegawai')
                 ->latest()->paginate(5);
         $data = Penggajian::all();
-        return view('penggajian.index', compact('data'));
+        $pegawais = Pegawai::all();
+        $row = Devisi::all();
+        return view('penggajian.index', compact('data', 'pegawais', 'row'));
         }
 
         public function tambahpenggajian() 
@@ -59,57 +64,52 @@ class PenggajianController extends Controller
             
                 $penggajian = Penggajian::find($id);
         
-                if (!$penggajian) {
-                    return redirect()->route('show')->with('error', 'penggajian tidak ditemukan');
-                }
+                // if (!$penggajian) {
+                //     return redirect()->route('show')->with('error', 'penggajian tidak ditemukan');
+                // }
         
-                return view('penggajian.detail_datapenggajian', compact('penggajian'));
+                // return view('penggajian.detail_datapenggajian', compact('penggajian'));
+                if (!$penggajian) {
+            return redirect()->back()->with('error', 'Penggajian not found');
+        }
+
+        // Mengambil semua data kehadiran untuk karyawan terkait
+         $absensis = Absensi::where('id_pegawai', $penggajian->id_pegawai)->get();
+
+        // Menghitung total denda berdasarkan status kehadiran
+        $totalPotongan = 0;
+
+        foreach ($absensis as $absen) {
+            switch ($absen->status) {
+                case 'alfa':
+                    $totalPotongan += 50000;
+                    break;
+                case 'ijin':
+                    $totalPotongan += 25000;
+                    break;
+                case 'sakit':
+                    $totalPotongan += 10000;
+                    break;
+            }
+        }
+
+        // Menghitung total gaji
+        $totalGaji = $penggajian->uang_makan + $penggajian->uang_tp - $totalPotongan;
+
+       // Memperbarui total denda dan total gaji di tabel penggajian
+        $penggajian->total_potongan = $totalPotongan;
+        $penggajian->total_gaji = $totalGaji;
+        $penggajian->save();
+
+        // Mengembalikan hasil perhitungan gaji ke view
+        //dd($penggajian);
+        return view('penggajian.index', compact('penggajian','totalGaji'));
+    }
             
         }
-        public function hitungGaji()
-    {
-        // Ambil data absensi dan hitung jumlah hari kerja
-        $periode = '2024-05'; // Periode tertentu
-        $bulan = '05';
-        $tahun  = date('Y');
-        $absensi = DB::table('absensis')
-            ->join('pegawais', 'absensis.id_pegawai', '=', 'pegawais.id')
-            ->select('absensis.id_pegawai', 'pegawais.nama_pegawai', DB::raw('COUNT(absensis.id) as jumlah_hari_kerja'))
-            ->where('month(absensis.tanggal)', $bulan)
-            ->where('year(absensis.tanggal)', $tahun)
-            ->where('absensis.kehadiran', 'hadir') //tambahan kondisi untuk kehadiran
-            ->groupBy('absensis.id_pegawai', 'pegawais.nama_pegawai', 'absensis.kehadiran')
-            ->get();
+   
+    
 
-        // Proses perhitungan gaji
-        // foreach ($absensi as $data) {
-        //     $gajiharian = 400000; // Misalnya, gaji per hari
-        //     $totalGaji = $data->jumlah_hari_kerja * $gajiharian;
-        // }
+        
 
-        foreach ($absensi as $data) {
-    foreach ($data->divisi as $devisi) {
-        $gajiharian = $devisi->gajiharian;
-    }
-    $totalGaji = $data->jumlah_hari_kerja * $gajiharian;
-    }
 
-        // Simpan ke tabel penggajian
-            DB::table('penggajians')->updateOrInsert(
-                ['id_pegawai' => $data->id_pegawai, 'periode' => $periode],
-                ['total_gaji' => $totalGaji, 'created_at' => now(), 'updated_at' => now()]
-            );
-
-        // Ambil data gaji dari tabel penggajian
-        $dataGaji = DB::table('penggajians')
-            ->join('pegawais', 'penggajians.id_pegawai', '=', 'pegawais.id')
-            ->select('penggajians.*', 'pegawais.nama_pegawai')
-            ->where('penggajians.periode', $periode)
-            ->latest()
-            ->paginate(5);
-
-        // Kembalikan data ke view (misalnya)
-        return view('penggajian.index', compact('dataGaji'));
-    }
-
-}

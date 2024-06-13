@@ -13,7 +13,7 @@ class Penggajian extends Model
 
     protected $primary = 'id';
     protected $guarded = [];
-    protected $dates = ['tanggal_bayar'];
+    protected $dates = ['tgl_penggajian'];
     
     // public function pegawais(){
     //     return $this->belongsTo(Penggajian::class, 'id_pegawai','id');
@@ -22,9 +22,9 @@ class Penggajian extends Model
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai','id');
     }
-    public function devisis()
-    {
-        return $this->belongsTo(Devisi::class, 'id_devisi','id');
-    }
+     public function devisis()
+     {
+         return $this->belongsTo(Devisi::class, 'id_devisi','id');
+     }
 }
 

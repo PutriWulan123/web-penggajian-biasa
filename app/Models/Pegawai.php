@@ -14,16 +14,18 @@ class Pegawai extends Model
     use HasFactory;
 
     protected $primary = 'id';
-    protected $guarded = [];
+    
     protected $table = 'pegawais';
-  //protected $dates = ['created_at'];
-//   protected $fillable = [
-//         'nama_pegawai',
-//         'jenis_kelamin',
-//         'id_devisi',
-//         'alamat',
-//         'no_telp',
-//     ];
+
+    protected $fillable = [
+        'nama_pegawai',
+        'jenis_kelamin',
+        'id_devisi',
+        'alamat',
+        'no_telp',
+    ];
+  
+
 
    public function devisis()
    {

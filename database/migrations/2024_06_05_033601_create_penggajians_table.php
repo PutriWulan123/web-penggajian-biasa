@@ -21,8 +21,11 @@ class CreatePenggajiansTable extends Migration
             $table->foreign('id_devisi')->references('id')->on('devisis')->onDelete('cascade');
             // $table->string('nama_devisi');
             $table->string('periode');
-            $table->integer('total_gaji');
-            $table->date('tanggal_bayar');
+            $table->integer('uang_makan');
+            $table->integer('uang_tp');
+            $table->integer('total_potongan');
+            $table->integer('gaji_pokok');
+            $table->date('tgl_penggajian');
             $table->timestamps();
         });
     }

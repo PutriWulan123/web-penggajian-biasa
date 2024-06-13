@@ -54,26 +54,54 @@
                                             <form action="/insertdata_penggajian" method="POST" enctype="multipart/form-data">
                                                 
                                                 @csrf
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Id Pegawai</label>
-                                                    <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                <div class="form-group">
+                                                    <label>Pegawai</label>
+                                                    <select name="id_pegawai" class="form-control">
+                                                        <option value="">- Pilih -</option>
+                                                        @foreach ($pegawais as $pg)
+                                                            <option value="{{ $pg->id }}">{{ $pg->nama_pegawai }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
-                                                    <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                                                <div class="form-group">
+                                                    <label>Devisi</label>
+                                                    <select name="id_devisi" class="form-control">
+                                                    <option selected>- Pilih -</option>
+                                                        @foreach ($row as $dv )
+                                                            <option value="{{ $dv->id}}">{{ $dv->nama_devisi}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                        
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Periode</label>
                                                     <input type="text" name="periode" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                                 </div>
+
                                                 <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Total Gaji</label>
-                                                    <input type="number" name="total_gaji" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                    <label for="exampleInputEmail1" class="form-label ">Makan</label>
+                                                    <input type="number" name="uang_makan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                                 </div>
+
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Transportasi</label>
+                                                    <input type="number" name="uang_tp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                </div>
+
+                                                 <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Gaji Pokok</label>
+                                                    <input type="number" name="gaji_pokok" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                </div>
+
+                                                 <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Potongan</label>
+                                                    <input type="number" name="total_potongan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                </div>
+                                                
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Tanggal Bayar</label>
-                                                    <input type="date" name="tanggal_bayar" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                    <input type="date" name="tgl_penggajian" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                                 </div>
                                                 
                                                     <div class="modal-footer">
@@ -106,7 +134,9 @@
                                             <th class="text-center">Devisi</th>
                                             <th class="text-center">Periode</th>
                                             <th class="text-center">Total Gaji</th>
-                                            <th class="text-center">Tanggal Bayar</th>
+                                            {{-- <th class="text-center">Makan</th>
+                                            <th class="text-center">Transportasi</th>  --}}
+                                            <th class="text-center">Tanggal Penggajian</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -118,12 +148,18 @@
                                         @endphp
                                          @foreach($data as $row)
                                             <tr class="text-center">
-                                                <th scope="row">{{ $no++}}</th>
+                                                <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ $row->pegawais->nama_pegawai }}</td>
                                                 <td>{{ $row->devisis->nama_devisi }}</td>
                                                 <td>{{ $row->periode}}</td>
-                                                <td>{{ $row->total_gaji}}</td>
-                                                <td>{{ date('d-m-Y', strtotime($row->tanggal_bayar))
+                                                {{-- <td>Rp{{ number_format($row->makan, 0, ',', '.') }}</td>
+                                                <td>Rp{{ number_format($row->transportasi, 0, ',', '.') }}</td> 
+                                                <td>{{ number_format($row->total_potongan, 0, ',', '.') }}</td> --}}
+                                                <td>{{ number_format($row->gaji_pokok + $row->uang_makan + $row->uang_tp - $row->total_potongan, 0, ',', '.') }}</td>
+                                                {{-- @foreach ($penggajian as $gj)
+                                                    <td>{{ $gj->gaji_pokok }}</td>
+                                                @endforeach --}}
+                                                <td>{{ date('d-m-Y', strtotime($row->tgl_penggajian))
                                                     }}</td>
                                                 <td>
                                                     <!-- Button trigger modal -->
@@ -144,92 +180,121 @@
                                                 </td>
                                             </tr>
 
-<!-- Modal Edit -->
-<div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit
-                    Data Penggajian</h5>
-                @can('edit role')
-                    <button type="button" class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                @endcan
-            </div>
-            <form action="/updatedata_penggajian/{{ $row->id }}"
-                method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    {{-- CODE UNTUK TAMPILAN POP UP --}}
-                    @csrf
-                    
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nama Pegawai</label>
-                        <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->id_pegawai}}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
-                        <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->nama_devisi}}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Periode</label>
-                        <input type="text" name="periode" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->periode}}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Total Gaji</label>
-                        <input type="number" name="total_gaji" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->total_gaji}}">
-                    </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Tanggal Bayar</label>
-                    <input type="date" name="tanggal_bayar" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->tanggal_bayar}}">
-                                 </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Keluar</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+                                        <!-- Modal Edit -->
+                                        <div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit
+                                                            Data Penggajian</h5>
+                                                        @can('edit role')
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        @endcan
+                                                    </div>
+                                                    <form action="/updatedata_penggajian/{{ $row->id }}"
+                                                        method="POST" enctype="multipart/form-data">
+                                                        <div class="modal-body">
+                                                            {{-- CODE UNTUK TAMPILAN POP UP --}}
+                                                            @csrf
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Nama Pegawai</label>
+                                                                <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->pegawais->nama_pegawai}}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
+                                                                <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->devisis->nama_devisi}}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label ">Periode</label>
+                                                                <input type="text" name="periode" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->periode}}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Makan</label>
+                                                                <input type="text" name="uang_makan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="Rp{{ number_format($row->uang_makan, 0, ',', '.') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Transportasi</label>
+                                                                <input type="text" name="uang_tp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="Rp{{ number_format($row->uang_tp, 0, ',', '.') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Total Gaji</label>
+                                                                <input type="text" name="gaji_pokok" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ number_format($row->gaji_pokok, 0, ',', '.') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputEmail1" class="form-label">Potongan</label>
+                                                                <input type="text" name="total_potongan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="Rp{{ number_format($row->total_potongan, 0, ',', '.') }}">
+                                                            </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">Tanggal Bayar</label>
+                                                            <input type="date" name="tgl_penggajian" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ date('d-m-Y', strtotime($row->tgl_penggajian))
+                                                    }}">
+                                                                        </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Keluar</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!-- Modal Detail -->
-<div class="modal fade" id="modalDetail{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Data Penggajian</h5>
-            </div>
-            <div class="modal-body">
-                {{-- CODE UNTUK TAMPILAN POP UP --}}
-                <div class="mb-3">
-                    <label for="devisi" class="form-label">Nama Pegawai</label>
-                    <input type="text" name="id_pegawai" class="form-control" id="id_pegawai" value="{{ $row->pegawais->nama_pegawai }}" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="id_devisi" class="form-label">Nama Devisi</label>
-                    <input type="text" name="id_devisi" class="form-control" id="id_devisi" value="{{ $row->devisis->nama_devisi }}" disabled>
-                </div>
+                                        <!-- Modal Detail -->
+                                        <div class="modal fade" id="modalDetail{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Detail Data Penggajian</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{-- CODE UNTUK TAMPILAN POP UP --}}
+                                                        <div class="mb-3">
+                                                            <label for="devisi" class="form-label">Nama Pegawai</label>
+                                                            <input type="text" name="id_pegawai" class="form-control" id="id_pegawai" value="{{ $row->pegawais->nama_pegawai }}" disabled>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="id_devisi" class="form-label">Nama Devisi</label>
+                                                            <input type="text" name="id_devisi" class="form-control" id="id_devisi" value="{{ $row->devisis->nama_devisi }}" disabled>
+                                                        </div>
 
-                <div class="mb-3">
-                    <label for="periode" class="form-label">Periode</label>
-                    <input type="text" name="periode" class="form-control" id="periode" value="{{ $row->periode }}" disabled>
-                </div>
+                                                        <div class="mb-3">
+                                                            <label for="periode" class="form-label">Periode</label>
+                                                            <input type="text" name="periode" class="form-control" id="periode" value="{{ $row->periode }}" disabled>
+                                                        </div>
 
-                <div class="mb-3">
-                    <label for="total_gaji" class="form-label">Total Gaji</label>
-                    <input type="number" name="total_gaji" class="form-control" id="total_gaji" value="{{ $row->total_gaji }}" disabled>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="tanggal_bayar" class="form-label">Tanggal Bayar</label>
-                    <input type="date" name="tanggal_bayar" class="form-control" id="tanggal_bayar" value="{{ $row->tanggal_bayar }}" disabled>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                                        <div class="mb-3">
+                                                            <label for="uang_makan" class="form-label">Makan</label>
+                                                            <input type="text" name="uang_makan" class="form-control" id="uang_makan" value="Rp{{ number_format($row->uang_makan, 0, ',', '.') }}" disabled>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="uang_tp" class="form-label">Transportasi</label>
+                                                            <input type="text" name="uang_tp" class="form-control" id="uang_tp" value="Rp{{ number_format($row->uang_tp, 0, ',', '.') }}" disabled>
+                                                        </div>`
+
+                                                        <div class="mb-3">
+                                                            <label for="total_potongan" class="form-label">Total Potongan</label>
+                                                            <input type="text" name="total_potongan" class="form-control" id="total_potongan" value="Rp{{ number_format($row->total_potongan, 0, ',', '.') }}" disabled>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="gaji_pokok" class="form-label">Total Gaji</label>
+                                                            <input type="text" name="gaji_pokok" class="form-control" id="gaji_pokok" value="
+                                                            "Rp{{ number_format($row->gaji_pokok + $row->uang_makan + $row->uang_tp - $row->total_potongan, 0, ',', '.') }}" disabled>
+                                                        </div>
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="tgl_penggajian" class="form-label">Tanggal Bayar</label>
+                                                            <input type="date" name="tgl_penggajian" class="form-control" id="tgl_penggajian" value="{{ $row->tgl_penggajian }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
                                     </tbody>
                                 </table>

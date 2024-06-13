@@ -202,11 +202,8 @@
                                                                     <div class="mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Id Devisi</label>
-                                                                        <input type="text" name="id_devisi"
-                                                                            class="form-control"
-                                                                            id="exampleInputEmail1"
-                                                                            aria-describedby="emailHelp"
-                                                                            value="{{ $row->id_devisi }}">
+                                                                        <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1 aria-describedby="emailHelp"
+                                                                            value="{{ $row->devisis->nama_devisi}}">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="exampleInputEmail1"
@@ -258,7 +255,7 @@
                                                                         value="{{ $row->jenis_kelamin }}" disabled>
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label for="devisi" class="form-label">Id Devisi</label>
+                                                                    <label for="devisi" class="form-label">Devisi</label>
                                                                     <input type="text" name="id_devisi" class="form-control" id="id_devisi"
                                                                         value="{{ $row->devisis->nama_devisi }}" disabled>
                                                                 </div>

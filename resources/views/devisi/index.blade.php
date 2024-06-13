@@ -51,16 +51,6 @@
                                                 <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                             </div>
 
-                                            <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label">Gaji Harian</label>
-                                                <input type="text" name="gaji_harian" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label">Gaji Pokok</label>
-                                                <input type="text" name="gaji_pokok" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                            </div>
-
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -86,8 +76,6 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Nama Devisi</th>
                                         <th class="text-center">Jabatan</th>
-                                        <th class="text-center">Gaji Harian</th>
-                                        <th class="text-center">Gaji Pokok</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -146,17 +134,6 @@
                                                                 <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->jabatan }}">
                                                             </div>
 
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputEmail1" class="form-label">Gaji Harian</label>
-                                                                <input type="text" name="gaji_harian" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->gaji_harian }}">
-                                                            </div>
-
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputEmail1" class="form-label">Gaji Pokok</label>
-                                                                <input type="text" name="gaji_pokok" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $row->gaji_pokok }}">
-                                                            </div>
-                                                        </div>
-
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                                                             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -182,16 +159,6 @@
                                                         <div class="mb-3">
                                                             <label for="jabatan" class="form-label">Jabatan</label>
                                                             <input type="text" name="jabatan" class="form-control" id="jabatan" value="{{ $row->jabatan }}" disabled>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label for="gaji_harian" class="form-label">Gaji Harian</label>
-                                                            <input type="text" name="gaji_harian" class="form-control" id="gaji_harian" value="{{ $row->gaji_harian }}" disabled>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label for="gaji_pokok" class="form-label">Gaji Pokok</label>
-                                                            <input type="text" name="gaji_pokok" class="form-control" id="gaji_pokok" value="{{ $row->gaji_pokok }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

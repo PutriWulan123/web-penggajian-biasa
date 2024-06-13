@@ -11,18 +11,19 @@ use Illuminate\Support\Facades\Log;
 
 class AbsensiController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data = DB::table('absensis')
-                ->join('pegawais', 'absensis.id_pegawai', 'pegawais.id')
-                ->select('absensis.*', 'pegawais.nama_pegawai')
-                ->latest()
-                ->paginate(5);
-        
-        $data1 = Absensi::all();
+            ->join('pegawais', 'absensis.id_pegawai', 'pegawais.id')
+            ->select('absensis.*', 'pegawais.nama_pegawai')
+            ->latest()
+            ->paginate(5);
+
+        $absensi = Absensi::with('pegawai', 'devisi')->get();
         $pegawais = Pegawai::all();
         $row = Devisi::all();
-        return view('absensi.index', compact('data', 'data1', 'pegawais', 'row'));
-        }
+        return view('absensi.index', compact('data', 'absensi', 'pegawais', 'row'));
+    }
 
         public function tambahabsensi() 
         {

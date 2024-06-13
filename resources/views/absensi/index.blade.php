@@ -65,7 +65,7 @@
                                                     </select>
                                                 </div>
 
-
+                                                
                                             
                                                 <div class="form-group">
                                                     <label>Devisi</label>
@@ -78,12 +78,12 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Kehadiran</labekehadiran" aria-label="Default select example">
+                                                    <label for="exampleInputEmail1" class="form-label">Kehadiran</label>
+                                                    <select class="form-select" name="kehadiran" aria-label="Default select example">
                                                         <option selected>--Kehadiran--</option>
                                                         <option value="Ijin">Ijin</option>
                                                         <option value="Sakit">Sakit</option>
-                                                        <option value="Alfa">Alfa</opl>
-                                                    <select class="form-select" name="tion>
+                                                        <option value="Alfa">Alfa</option>
                                                     </select>
                                                 </div>
 
@@ -127,40 +127,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $no = 1;
-                                            $a = 1;
-                                            $b = 1;
-                                        @endphp
-                                          @foreach($data1 as $row)
+                                        @foreach ($absensi as $row)
                                             <tr class="text-center">
-                                                <th scope="row">{{ $no++}}</th>
-                                                    <td>{{ $row->pegawais->nama_pegawai }}</td>
-                                                    <td>{{ $row->devisis->nama_devisi }}</td>
-                                                    <td>{{ $row->kehadiran }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($row->tanggal))
-                                                        }}</td>
-                                                    <td>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>{{ $row->pegawai->nama_pegawai }}</td>
+                                                <td>{{ $row->devisi->nama_devisi }}</td>
+                                                <td>{{ $row->kehadiran }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($row->tanggal)) }}</td>
+                                                <td>
                                                     <!-- Button trigger modal -->
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Lihat</a>
+                                                   <div class="dropdown">
+                                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">Lihat</a>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                             @can('delete role')
                                                                 <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal{{ $row->id }}">Edit</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
-                                                                <li><hr class="dropdown-divider"></li>
                                                             @can('delete role')
                                                                 <li><a class="dropdown-item" href="/deletedata_absensi/{{ $row->id }}">Hapus</a></li>
                                                             @endcan
-                                                           
                                                             <li><hr class="dropdown-divider"></li>
                                                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
+
                                                         </ul>
                                                     </div>
                                                 </td>
                                             </tr>
-
                                                     <!-- Modal Edit -->
                                                     <div class="modal fade" id="exampleModal{{ $row->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -178,13 +170,20 @@
                                                                         
                                                                         <div class="mb-3">
                                                                             <label for="exampleInputEmail1" class="form-label">Nama Pegawai</label>
-                                                                            <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->id_pegawai}}">
+                                                                            <input type="text" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->pegawai->nama_pegawai}}">
                                                                         </div>
 
                                                                         <div class="mb-3">
                                                                             <label for="exampleInputEmail1" class="form-label">Nama Devisi</label>
-                                                                            <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->nama_devisi}}">
+                                                                            <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{ $row->devisi->nama_devisi }}">
                                                                         </div>
+{{-- 
+                                                                        <div class="mb-3">
+                                                                        <label for="exampleInputEmail1"
+                                                                            class="form-label">Id Devisi</label>
+                                                                        <input type="text" name="id_devisi" class="form-control" id="exampleInputEmail1 aria-describedby="emailHelp"
+                                                                            value="{{ $row->id_devisi }}">
+                                                                    </div> --}}
 
                                                                         <div class="mb-3">
                                                                             <label for="exampleInputEmail1" class="form-label">Kehadiran</label>
@@ -222,14 +221,14 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     {{-- CODE UNTUK TAMPILAN POP UP --}}
-                                                                <div class="mb-3">
-                                                                        <label for="devisi" class="form-label">Nama Pegawai</label>
-                                                                        <input type="text" name="id_pegawai" class="form-control" id="id_pegawai" value="{{ $row->pegawais->nama_pegawai }}" disabled>
+                                                                    <div class="mb-3">
+                                                                        <label for="id_pegawai" class="form-label">Nama Pegawai</label>
+                                                                        <input type="text" name="id_pegawai" class="form-control" id="id_pegawai" value="{{ $row->pegawai->nama_pegawai }}" disabled>
                                                                     </div>
                                                                                         
                                                                     <div class="mb-3">
-                                                                        <label for="id_devisi" class="form-label">Nama Devisi</label>
-                                                                        <input type="text" name="id_devisi" class="form-control" id="id_devisi" value="{{ $row->devisis->nama_devisi }}" disabled>
+                                                                        <label for="devisi" class="form-label">Nama Devisi</label>
+                                                                        <input type="text" name="id_devisi" class="form-control" id="id_devisi" value="{{ $row->devisi->nama_devisi }}" disabled>
                                                                     </div>
                                                                                             
                                                                     <div class="mb-3">

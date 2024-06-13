@@ -192,11 +192,23 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
-        </div>
+        {{-- <div class="image">
+          <img src="{{ asset('AdminLTE/dist/img/avatar5.png')}}" class="img-circle elevation-2" alt="User Image">
+        </div> --}}
+        {{-- <div class="info">
+          <a href="{{ Auth::user()->name }}" class="d-block">Selamat datang!!</a>
+        </div> --}}
         <div class="info">
-          <a href="" class="d-block">Alexander Pierce</a>
+            @if (Auth::user()->id == 1)
+                <img src="{{ asset('AdminLTE/dist/img/avatar5.png')}}" alt="User 1 Profile Picture" class="profile-picture">
+                <a>Admin</a>
+            @elseif (Auth::user()->id == 2)
+                <img src="{{ asset('AdminLTE/dist/img/avatar2.png')}}" alt="User 2 Profile Picture" class="profile-picture">
+                <a>Superadmin</a>
+            @else
+                <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg')}}" alt="Default Profile Picture" class="profile-picture">
+            @endif
+            {{-- <a href="{{ Auth::user()->name }}" class="d-block">Selamat datang!!</a> --}}
         </div>
       </div>
 
@@ -253,7 +265,30 @@
               </p>
             </a>
           </li>
-
+           {{-- <li class="nav-item menu-open">
+            <a href="/dashboard" class="nav-link active">
+              <i class="fas fa-window-restore"></i>
+              <p>
+                Data Absensi
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/absensi" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Input Absensi</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p></p>
+                </a>
+              </li>
+            </ul> --}}
           <li class="nav-item">
             <a href="/penggajian" class="nav-link">
               <i class="far fa-money-bill-alt"></i>

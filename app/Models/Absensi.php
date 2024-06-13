@@ -20,13 +20,13 @@ class Absensi extends Model
         'tanggal',
     ];
 
-    public function pegawais()
+    public function pegawai()
     {
-        return $this->hasMany(Pegawai::class, 'id');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai');
     }
 
-    public function devisis()
+    public function devisi()
     {
-        return $this->belongsTo(Devisi::class);
+        return $this->belongsTo(Devisi::class, 'id_devisi', 'id');
     }
 }
