@@ -283,7 +283,7 @@
 
                                                         <div class="mb-3">
                                                             <label for="gaji_pokok" class="form-label">Total Gaji</label>
-                                                            <input type="text" name="gaji_pokok" class="form-control" id="gaji_pokok" value="
+                                                            <input type="text" name="gaji_pokok" class="form-control" id="gaji_pokok" value=
                                                             "Rp{{ number_format($row->gaji_pokok + $row->uang_makan + $row->uang_tp - $row->total_potongan, 0, ',', '.') }}" disabled>
                                                         </div>
                                                         

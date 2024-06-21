@@ -4,10 +4,12 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DevisiController;
 use App\Http\Controllers\PenggajianController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\UserBaruController;
 use App\Models\Devisi;
 use App\Models\Pegawai;
 use App\Models\Penggajian;
 use App\Models\Absensi;
+use App\Models\UserBaru;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,3 +86,13 @@ Route::get('/get-pegawai', [PegawaiController::class, 'getPegawaiByName']);
 
 
 Route::get('/hitung-gaji', [PenggajianController::class, 'hitungGaji']);
+
+//gol user
+Route::get('/user-baru',[UserBaruController::class, 'index'])->name('user-baru');
+Route::get('/tambahuser-baru',[UserBaruController::class, 'tambahuser-baru'])->name('tambahuser-baru');
+Route::post('/insertdata_user',[UserBaruController::class, 'insertdata_user'])->name('insertdata_user');
+Route::get('/tampilkandata_user-baru/{id}',[UserBaruController::class, 'tampilkandata_user-baru'])->name('tampilkandata_user-baru');
+Route::post('/updatedata_user-baru/{id}',[UserBaruController::class, 'updatedata_user-baru'])->name('updatedata_user-baru');
+Route::get('/deletedata_user-baru/{id}',[UserBaruController::class, 'deletedata_user-baru'])->name('deletedata_user-baru');
+Route::get('/detail_datauser-baru/{id}', [UserBaruController::class, 'show'])->name('detail_datauser-baru');
+// Route::get('/user/{id}', [userController::class, 'show']);
