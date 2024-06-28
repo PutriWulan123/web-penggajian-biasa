@@ -171,7 +171,7 @@
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
                                                             @can('delete role')
-                                                                <li><a class="dropdown-item" href="/deletedata_penggajian/{{ $row->id }}">Hapus</a></li>
+                                                                <li><a class="dropdown-item delete" href="/deletedata_penggajian/{{ $row->id }}">Hapus</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
                                                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>

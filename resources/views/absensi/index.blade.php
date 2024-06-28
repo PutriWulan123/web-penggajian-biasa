@@ -147,7 +147,7 @@
                                                                 <li><a class="dropdown-item" href="/deletedata_absensi/{{ $row->id }}">Hapus</a></li>
                                                             @endcan
                                                             <li><hr class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
+                                                            <li><a class="dropdown-item delete" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
 
                                                         </ul>
                                                     </div>

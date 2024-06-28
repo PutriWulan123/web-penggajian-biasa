@@ -56,14 +56,14 @@
                                                 <input type="text" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                             </div>
 
-                                            <div>
+                                            {{-- <div>
                                                 <label for="role">Role:</label>
                                                 <select id="role" name="role" required>
                                                     @foreach($roles as $role)
                                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
@@ -118,7 +118,7 @@
                                                     @endcan
                                                     <li><hr class="dropdown-divider"></li>
                                                     @can('delete role')
-                                                        <li><a class="dropdown-item" href="/deletedata_user/{{ $row->id }}">Hapus</a></li>
+                                                        <li><a class="dropdown-item delete" href="/deletedata_user/{{ $row->id }}">Hapus</a></li>
                                                     @endcan
                                                     <li><hr class="dropdown-divider"></li>
                                                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $row->id }}">Detail</a></li>
