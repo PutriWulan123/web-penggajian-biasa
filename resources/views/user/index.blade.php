@@ -56,6 +56,15 @@
                                                 <input type="text" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                             </div>
 
+                                            <div>
+                                                <label for="role">Role:</label>
+                                                <select id="role" name="role" required>
+                                                    @foreach($roles as $role)
+                                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                                                 <button type="submit" class="btn btn-primary">Simpan</button>
